@@ -19,7 +19,7 @@ class PredictionResults:
         self.y_train_predicted = y_train_predicted.tolist()
         self.y_test_predicted = y_test_predicted.tolist()
         if not (model_type in ["BayesHypOPt_NN_regression", "RandHypOPt_NN_regression"]):
-            self.feature_importance_scores = feature_importance_scores
+            self.feature_importance_scores = feature_importance_scores.to_dict()
         else:
             self.feature_importance_scores = feature_importance_scores
         self.model_hyperparams = model_hyperparams
