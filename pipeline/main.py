@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 import json
 import time
 from model import ModelBuilder
@@ -10,7 +11,7 @@ start_time = time.time()
 if __name__ == '__main__':
     params = get_parameters()
     data = pd.read_csv(params.data_path, index_col=0)
-    target_name = data.columns[0]
+    file_name = os.path.splitext(os.path.basename(params.data_path))[0]
     data_preprocessor = DataPreprocessing(data)
     if params.data_splitting_criteria == 'preprocess_data_HOAR':
         preprocessed_data = data_preprocessor.preprocess_data_HOAR(test_split_size=0.25)
