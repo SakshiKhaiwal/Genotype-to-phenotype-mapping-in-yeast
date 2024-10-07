@@ -38,7 +38,8 @@ if __name__ == '__main__':
     training_time = end_time - start_time
 
 
-    with open(f'{params.data_path_out}_{file_name}_{params.model_type}.json', 'w+') as f:
+
+    with open(f'{params.data_path_out}/{file_name}_{params.model_type}.json', 'w+') as f:
         d = {'Test_r2score': r.results['Test r2score'],
              'Train_r2score': r.results['Train r2 score'],
              'Test_pearson_value': r.results['Test pearson value'],
@@ -48,9 +49,9 @@ if __name__ == '__main__':
              'Training_time': training_time}
         json.dump(d, f)
 
-    with open(f'{params.data_path_out}_{file_name}_{params.model_type}_additional_information.json', 'w+') as f:
+    with open(f'{params.data_path_out}/{file_name}_{params.model_type}_additional_information.json', 'w+') as f:
         d = {'y_train_predicted': r.y_train_predicted,
              'y_test_predicted': r.y_test_predicted,
-             'Features importance scores': r.feature_importance_scores}
+             'Features importance scores': r.feature_importance_scores.to_dict()}
         json.dump(d, f)
 
