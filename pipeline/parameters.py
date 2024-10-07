@@ -15,7 +15,8 @@ def get_parameters():
                         help='path to the output data')
     parser.add_argument('--clades_data_path', type=str, required=False, help='path to clades data')
     parser.add_argument('--data_splitting_criteria', type=str, default='preprocess_data_HOAR',
-                        choices=['preprocess_data_HOAR', 'preprocess_data_INHO', 'preprocess_data_LOCO'])
+                        choices=['preprocess_data_HOAR', 'preprocess_data_INHO', 'preprocess_data_LOCO'],
+                        help='how to split the data into training and testing')
     parser.add_argument('--do_feature_selection', type=bool, required=False, default=False,
                         help='apply feature selection')
     parser.add_argument('--feature_selection_strategy', type=str, required=False, default='lasso_selection_grid',
