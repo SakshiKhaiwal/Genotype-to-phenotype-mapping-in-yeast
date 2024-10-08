@@ -22,7 +22,7 @@ The input dataset to run the pipeline should be in 'CSV' format, where the first
 - Pipeline parameters.
 To see all the parameters of the pipeline, run:
 ```
-   -python main.py --help
+   python main.py --help
 ```
 
 ```
@@ -47,7 +47,7 @@ To see all the parameters of the pipeline, run:
 - Train the model. 
 To train the model with the default parameters, run the following command:
 ```
-   -python main.py  --data_path=INPUT_DATA --data_path_out=OUTPUT_DATA_PATH
+   python main.py  --data_path=INPUT_DATA --data_path_out=OUTPUT_DATA_PATH
 ```
 
 
