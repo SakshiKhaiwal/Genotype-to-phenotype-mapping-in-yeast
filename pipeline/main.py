@@ -37,8 +37,6 @@ if __name__ == '__main__':
     end_time = time.time()
     training_time = end_time - start_time
 
-
-
     with open(f'{params.data_path_out}/{file_name}_{params.model_type}.json', 'w+') as f:
         d = {'Test_r2score': r.results['Test r2score'],
              'Train_r2score': r.results['Train r2 score'],
