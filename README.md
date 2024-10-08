@@ -54,6 +54,17 @@ To train the model with the default parameters, run the following command:
 - Results.
 The output path should contain two JSON files with the suffix '_prediction_accuracy.json' and '_additional_information.json'. Each file contains a dictionary object, '_prediction_accuracy.json': 'Test r2 score', 'Train r2 score', 'Test pears value': Test_pears_val, 'Train pears value', 'Training time' and the '_additional_information.json': 'y_train_predicted', 'y_test_predicted', 'training_strains', 'testing_strains' and 'Features importance scores'.
 
+
+# Benchmarking 
+To benchmark over different types of genetic features and multiple phenotypes for all models, run the Benchmark.py script using the following command:
+
+```
+python Benchmark.py --data_path=INPUT_DATA_PATH --data_path_out=OUTPUT_DATA_PATH
+
+```
+In the 'INPUT_DATA_PATH', the genetic matrices are added with the suffix 'gen.csv' and the phenotype matrix with the suffix 'phen.csv'. 
+
+
 # Dataset.
 All the datasets used in the project are provided with the ref. paper.
 
