@@ -9,11 +9,11 @@ from feature_selection import FeatureSelection
 
 if __name__ == '__main__':
     params = get_parameters()
-    GenDir='Path_to_genetic_data'
-    # List of all genetic matrices
-    GenMatrices = [f for f in os.listdir(GenDir) if f.endswith('.csv')]
 
-    PhenMatrix = 'Finalset_223phenotypes_1011_wo_metadata.csv' ### Phenotype data
+
+    GenMatrices = [f for f in os.listdir(params.data_path) if f.endswith('gen.csv')] # List of all genetic matrices
+    PhenMatrix = [f for f in os.listdir(params.data_path) if f.endswith('phen.csv')] # Phenotypic matrix
+
     y_data = pd.read_csv(os.path.join(params.data_path, PhenMatrix), index_col=0)
     num_targets = y_data.shape[1]
 
