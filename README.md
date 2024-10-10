@@ -26,21 +26,29 @@ To see all the parameters of the pipeline, run:
    python main.py --help
 ```
 
+You will see the following parameters that can be defined by the user.
 ```
 
-  --data_path DATA_PATH  ## path to the input data
-                      
-  --data_path_out DATA_PATH_OUT   ## path to the output data
-                      
-  --data_splitting_criteria {preprocess_data_randomsplit,preprocess_data_cladesplit} ## splitting crietria
+ --data_path DATA_PATH   ###path to the input data
+                        
 
-  --clades_data_path CLADES_DATA_PATH  ## splitting criteria == cladesplit, then provide path to clades data
-                      
-  --do_feature_selection DO_FEATURE_SELECTION   ##  apply feature selection
-                    
-  --feature_selection_strategy {lasso_selection_grid,lasso_selection_random,lasso_selection_bayes,high_lasso} ## choice of feature selection strategy
-                      
-  --model_type {BayesHypOPt_Ridge_regression,BayesHypOPt_Elanet_regression,BayesHypOPt_GBM_regression,BayesHypOPt_SVR_regression,BayesHypOPt_NN_regression,RandHypOPt_Ridge_regression,RandHypOPt_Elanet_regression,RandHypOPt_GBM_regression,RandHypOPt_SVR_regression,RandHypOPt_NN_regression} ##   used model
+  --data_path_out DATA_PATH_OUT  ###path to the output data
+                        
+
+  --data_splitting_criteria {preprocess_data_HOAR,preprocess_data_INHO,preprocess_data_LOCO}  ###how to split the data into training and testing
+                        
+
+  --clades_data_path CLADES_DATA_PATH ###if splitting criteria is INHO or LOCO, then give the path to the clade path.
+                        
+
+  --do_feature_selection DO_FEATURE_SELECTION ###do feature selection
+                        
+
+  --feature_selection_strategy {lasso_selection_grid,lasso_selection_grid_optimized,lasso_selection_random,lasso_selection_bayes,high_lasso} ### choice of feature selection strategy
+                       
+  --model_type {BayesHypOPt_Ridge_regression,BayesHypOPt_Elanet_regression,BayesHypOPt_GBM_regression,BayesHypOPt_SVR_regression,BayesHypOPt_NN_regression,RandHypOPt_Ridge_regression,RandHypOPt_Elanet_regression,RandHypOPt_GBM_regression,RandHypOPt_SVR_regression,RandHypOPt_NN_regression} ###model to be used for prediction.
+                        
+
                     
 
 
