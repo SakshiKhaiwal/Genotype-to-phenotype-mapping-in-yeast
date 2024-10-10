@@ -9,7 +9,7 @@ In this project, we investigate the associations between the phenotypes and geno
 - cd Genotype-to-phenotype-mapping-in-yeast/pipeline
 - conda create -n GenPhen python=3.8
 - conda activate GenPhen
-- conda install --file requirements.txt
+- pip install -r requirements.txt
 ```
 
 
