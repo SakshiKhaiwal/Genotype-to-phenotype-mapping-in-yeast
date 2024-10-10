@@ -5,7 +5,7 @@ In this project, we investigate the associations between the phenotypes and geno
 
 # Installations
 ```
-- git clone git@github.com:SakshiKhaiwal/GenPhen.git
+- git clone https://github.com/SakshiKhaiwal/Genotype-to-phenotype-mapping-in-yeast.git
 - cd pipeline
 - conda create -n GenPhen python=3.8
 - conda install --file requirements.txt
