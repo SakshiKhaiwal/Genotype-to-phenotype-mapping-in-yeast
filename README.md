@@ -26,10 +26,10 @@ To see all the parameters of the pipeline, run:
    python main.py --help
 ```
 
-You will see the following parameters that can be defined by the user.
+You will see the following parameters that the user can define.
 ```
 
- --data_path DATA_PATH   ###path to the input data
+  --data_path DATA_PATH   ###path to the input data
                         
 
   --data_path_out DATA_PATH_OUT  ###path to the output data
