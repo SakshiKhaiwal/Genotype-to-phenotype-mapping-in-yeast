@@ -7,7 +7,10 @@ from scipy.stats import loguniform
 from sklearn.feature_selection import SelectFromModel
 from skopt import BayesSearchCV
 from skopt.space import Real
+from boruta import BorutaPy
+from sklearn.ensemble import RandomForestRegressor
 from hi_lasso.hi_lasso import HiLasso
+
 
 
 class FeatureSelection:
@@ -27,6 +30,9 @@ class FeatureSelection:
             features = self.lasso_selection_random()
         elif method == 'lasso_selection_bayes':
             features = self.lasso_selection_bayes()
+        elif method == 'Boruta_selection':
+            features = self.Boruta_selection()
+
         else:
             print('unrecognized feature selection method')
             return
@@ -95,6 +101,25 @@ class FeatureSelection:
 
         return {'X_train': LASSO_X_train, 'X_test': LASSO_X_test}
 
+
+
+    def Boruta_selection(self, n_iterations=200, nfolds=5, njobs=-1):
+        X_train = self.X_train
+        X_test = self.X_test
+        y_train = self.y_train
+
+        rf = RandomForestRegressor(random_state=0, n_estimators=500)
+        boruta = BorutaPy(rf, n_estimators='auto', max_iter=1000,alpha=0.5, verbose=2, random_state=42)
+        boruta.fit(X_train.values, y_train)
+        #index_selected_features = np.where(boruta.support_==True)[0]
+        Boruta_X_train = boruta.transform(X_train.values)
+        Boruta_X_test =  boruta.transform(X_test.values)
+        Boruta_X_train = pd.DataFrame(data=Boruta_X_train,
+                                     columns=X_train.columns[np.where(boruta.support_==True)[0]])
+        Boruta_X_test = pd.DataFrame(data=Boruta_X_test,
+                                    columns=X_test.columns[np.where(boruta.support_==True)[0]])
+
+        return {'X_train': Boruta_X_train, 'X_test': Boruta_X_test}
     def high_lasso(self, l=30, alpha=0.05, njobs=50):
 
         X_train = self.X_train
