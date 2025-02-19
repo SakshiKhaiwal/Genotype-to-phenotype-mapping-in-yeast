@@ -3,6 +3,7 @@ import numpy as np
 from scipy import stats
 import math
 from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn import linear_model
 from sklearn.model_selection import RandomizedSearchCV
 from scipy.stats import uniform, randint, loguniform
@@ -44,6 +45,8 @@ class ModelBuilder:
             result = self.BayesHypOPt_Elanet_regression(n_iterations=100, cross_val=5, num_jobs=-1)
         elif train_method == 'BayesHypOPt_GBM_regression':
             result = self.BayesHypOPt_GBM_regression(n_iterations=100, cross_val=5, num_jobs=-1)
+        elif train_method == 'BayesHypOPt_HistGBM_regression':
+            result = self.BayesHypOPt_HistGBM_regression(n_iterations=100, cross_val=5, num_jobs=-1)
         elif train_method == 'BayesHypOPt_SVR_regression':
             result = self.BayesHypOPt_SVR_regression(n_iterations=100, cross_val=5, num_jobs=-1)
         elif train_method == 'BayesHypOPt_NN_regression':
@@ -176,6 +179,8 @@ class ModelBuilder:
         y_train_predicted = GBM_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
+       # rmse_values = metrics.root_mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -184,6 +189,10 @@ class ModelBuilder:
         std_cv_score = (GBM_model_cv['std_test_score'][np.nanargmax(GBM_model_cv['mean_test_score'])])
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
+                #  'rmse': rmse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -194,6 +203,63 @@ class ModelBuilder:
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_GBM, GBM_model)
         return results
 
+
+
+    def BayesHypOPt_HistGBM_regression(self, n_iterations=100, cross_val=5, num_jobs=-1):
+        X_train = self.X_train
+        X_test = self.X_test
+        y_train = self.y_train
+        y_test = self.y_test
+
+        # Setting the hyperparameters for Gradient boosted decision trees
+        HistGBM_distributions = dict(
+
+                                 learning_rate=Real(1e-4, 1, prior='uniform'),
+                                 # Learning rate shrinks the contribution of each tree by learning_rate.
+                                 max_leaf_nodes=Integer(2, 100, prior='uniform'),
+                                 # The maximum number of leaves for each tree.
+                                 max_depth=Integer(2, 10, prior='uniform'),
+                                 # Maximum depth of the individual regression estimators.
+                                 min_samples_leaf=Integer(2, 100, prior='uniform'),
+                                 # The minimum number of samples required to be at a leaf node.
+                                 max_bins=Integer(2, 255, prior='uniform')
+                                # The maximum number of bins to use for non-missing values.
+                                 )
+
+        HistGBM_training = BayesSearchCV(HistGradientBoostingRegressor(loss="squared_error"),
+                                     HistGBM_distributions, n_iter=n_iterations, verbose=10,
+                                     cv=cross_val, n_jobs=num_jobs).fit(X_train, y_train)
+
+        HistGBM_model = HistGBM_training.best_estimator_
+        HistGBM_model_cv = HistGBM_training.cv_results_
+        #feature_importance_scores_GBM = pd.Series(list(HistGBM_model.feature_importances_), index=X_train.columns)
+        y_test_predicted = HistGBM_model.predict(X_test)
+        y_train_predicted = HistGBM_model.predict(X_train)
+        test_r2score = metrics.r2_score(y_test, y_test_predicted)
+        train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
+        #rmse_values = metrics.root_mean_squared_error(y_test, y_test_predicted)
+        test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
+        test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
+        train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
+        train_pears_pval = stats.pearsonr(y_train, y_train_predicted)[1]
+        mean_cv_score = (HistGBM_model_cv['mean_test_score'][np.nanargmax(HistGBM_model_cv['mean_test_score'])])
+        std_cv_score = (HistGBM_model_cv['std_test_score'][np.nanargmax(HistGBM_model_cv['mean_test_score'])])
+        scores = {'Test r2score': test_r2score,
+                  'Train r2 score': train_r2score,
+                  'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
+                 # 'rmse': rmse_values,
+                  'Test pearson value': test_pears_val,
+                  'Test pearson p-value': test_pears_pval,
+                  'Train pearson value': train_pears_val,
+                  'Train pearson p-value': train_pears_pval,
+                  'CV_best_mean_score': mean_cv_score,
+                  'CV_mean_std_score': std_cv_score}
+        scores = pd.Series(list(scores.values()), index=(scores.keys()))
+        results = PredictionResults(scores, y_train_predicted, y_test_predicted, HistGBM_model)
+        return results
     def BayesHypOPt_SVR_regression(self, n_iterations=100, cross_val=5, num_jobs=-1):
         X_train = self.X_train
         X_test = self.X_test
