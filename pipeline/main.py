@@ -40,6 +40,7 @@ if __name__ == '__main__':
     with open(f'{params.data_path_out}/{file_name}_{params.model_type}.json', 'w+') as f:
         d = {'Test_r2score': r.results['Test r2score'],
              'Train_r2score': r.results['Train r2 score'],
+             'MSE': r.results['mse'],
              'Test_pearson_value': r.results['Test pearson value'],
              'Train_pearson_value': r.results['Train pearson value'],
              'Test_pearson_pvalue': r.results['Test pearson p-value'],
