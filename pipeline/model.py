@@ -87,6 +87,7 @@ class ModelBuilder:
         y_train_predicted = Ridge_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -95,6 +96,7 @@ class ModelBuilder:
         std_cv_score = (Ridge_model_cv['std_test_score'][np.nanargmax(Ridge_model_cv['mean_test_score'])])
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -125,6 +127,7 @@ class ModelBuilder:
         y_train_predicted = Elanet_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -133,6 +136,7 @@ class ModelBuilder:
         std_cv_score = (Elanet_model_cv['std_test_score'][np.nanargmax(Elanet_model_cv['mean_test_score'])])
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -192,7 +196,6 @@ class ModelBuilder:
                   'mse': mse_values,
                   'cv_mean': mean_cv_score,
                   'cv_std': std_cv_score,
-                #  'rmse': rmse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -250,7 +253,6 @@ class ModelBuilder:
                   'mse': mse_values,
                   'cv_mean': mean_cv_score,
                   'cv_std': std_cv_score,
-                 # 'rmse': rmse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -292,6 +294,7 @@ class ModelBuilder:
         y_train_predicted = SVR_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -300,6 +303,7 @@ class ModelBuilder:
         std_cv_score = (SVR_model_cv['std_test_score'][np.nanargmax(SVR_model_cv['mean_test_score'])])
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -344,6 +348,7 @@ class ModelBuilder:
         y_train_predicted = NN_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -353,6 +358,7 @@ class ModelBuilder:
         feature_importance_scores_NN = 'Nan'
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -383,6 +389,7 @@ class ModelBuilder:
         y_train_predicted = (Ridge_model.predict(X_train))
         test_r2score = (metrics.r2_score(y_test, y_test_predicted))
         train_r2score = (metrics.r2_score(y_train, y_train_predicted))
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = (stats.pearsonr(y_test, y_test_predicted)[0])
         test_pears_pval = (stats.pearsonr(y_test, y_test_predicted)[1])
         train_pears_val = (stats.pearsonr(y_train, y_train_predicted)[0])
@@ -392,6 +399,7 @@ class ModelBuilder:
 
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -426,6 +434,7 @@ class ModelBuilder:
         y_train_predicted = np.array(Elanet_model.predict(X_train))
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -434,6 +443,7 @@ class ModelBuilder:
         std_cv_score = (Elanet_model_cv['std_test_score'][np.nanargmax(Elanet_model_cv['mean_test_score'])])
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -467,6 +477,7 @@ class ModelBuilder:
         y_train_predicted = GBM_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -475,6 +486,7 @@ class ModelBuilder:
         std_cv_score = (GBM_model_cv['std_test_score'][np.nanargmax(GBM_model_cv['mean_test_score'])])
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -515,6 +527,7 @@ class ModelBuilder:
         y_train_predicted = SVR_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -523,6 +536,7 @@ class ModelBuilder:
         std_cv_score = (SVR_model_cv['std_test_score'][np.nanargmax(SVR_model_cv['mean_test_score'])])
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
@@ -570,6 +584,7 @@ class ModelBuilder:
         y_train_predicted = NN_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
+        mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -577,6 +592,7 @@ class ModelBuilder:
         feature_importance_scores_NN = 'Nan'
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
+                  'mse': mse_values,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
