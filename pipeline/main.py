@@ -41,6 +41,8 @@ if __name__ == '__main__':
         d = {'Test_r2score': r.results['Test r2score'],
              'Train_r2score': r.results['Train r2 score'],
              'MSE': r.results['mse'],
+             'CV mean score': r.results['cv_mean'],
+             'CV std': r.results['cv_std'],
              'Test_pearson_value': r.results['Test pearson value'],
              'Train_pearson_value': r.results['Train pearson value'],
              'Test_pearson_pvalue': r.results['Test pearson p-value'],

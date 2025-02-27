@@ -97,12 +97,12 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_ridge, Ridge_model)
         return results
@@ -137,12 +137,12 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_Elanet, Elanet_model)
         return results
@@ -199,9 +199,7 @@ class ModelBuilder:
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_GBM, GBM_model)
         return results
@@ -256,9 +254,7 @@ class ModelBuilder:
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, HistGBM_model)
         return results
@@ -304,12 +300,12 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_SVR, SVR_model)
         return results
@@ -359,12 +355,12 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_NN, NN_model)
         return results
@@ -400,12 +396,13 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval
+                  }
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_ridge, Ridge_model)
         return results
@@ -444,12 +441,12 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_Elanet, Elanet_model)
         return results
@@ -487,12 +484,12 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_GBM, GBM_model)
         return results
@@ -537,12 +534,12 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval,
-                  'CV_best_mean_score': mean_cv_score,
-                  'CV_mean_std_score': std_cv_score}
+                  'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_SVR, SVR_model)
         return results
@@ -580,11 +577,14 @@ class ModelBuilder:
                                                    NN_parameters, n_iter=n_iterations, cv=cross_val,
                                                    n_jobs=num_jobs).fit(X_train, y_train)
         NN_model = NN_training.best_estimator_
+        NN_model_cv = NN_training.cv_results_
         y_test_predicted = NN_model.predict(X_test)
         y_train_predicted = NN_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
         train_r2score = metrics.r2_score(y_train, y_train_predicted)
         mse_values = metrics.mean_squared_error(y_test, y_test_predicted)
+        mean_cv_score = (NN_model_cv['mean_test_score'][np.nanargmax(NN_model_cv['mean_test_score'])])
+        std_cv_score = (NN_model_cv['std_test_score'][np.nanargmax(NN_model_cv['mean_test_score'])])
         test_pears_val = stats.pearsonr(y_test, y_test_predicted)[0]
         test_pears_pval = stats.pearsonr(y_test, y_test_predicted)[1]
         train_pears_val = stats.pearsonr(y_train, y_train_predicted)[0]
@@ -593,10 +593,13 @@ class ModelBuilder:
         scores = {'Test r2score': test_r2score,
                   'Train r2 score': train_r2score,
                   'mse': mse_values,
+                  'cv_mean': mean_cv_score,
+                  'cv_std': std_cv_score,
                   'Test pearson value': test_pears_val,
                   'Test pearson p-value': test_pears_pval,
                   'Train pearson value': train_pears_val,
-                  'Train pearson p-value': train_pears_pval}
+                  'Train pearson p-value': train_pears_pval
+                  }
 
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
         results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_NN, NN_model)
