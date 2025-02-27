@@ -54,20 +54,23 @@ class DataPreprocessing:
         self.y_train, self.y_test = self.y.iloc[train_index, :], self.y.iloc[test_index, :]
         strains_training, strains_testing = self.strains.iloc[train_index, :], self.strains.iloc[test_index, :]
 
+
+        scaler = StandardScaler().fit(self.X_train.values)
+        X_train = pd.DataFrame(scaler.transform(self.X_train.values), columns=self.X_train.columns, index=self.X_train.index)
+        X_test = pd.DataFrame(scaler.transform(self.X_test.values), columns=self.X_test.columns, index=self.X_test.index)
+
        # knn_imputer = KNNImputer(n_neighbors=3)
 
         # Fit and transform the training data
-       # self.X_train = pd.DataFrame(knn_imputer.fit_transform(self.X_train.values),columns=self.X_train.columns, index=self.X_train.index)
-       # self.X_test = pd.DataFrame(knn_imputer.fit_transform(self.X_test),columns=self.X_test.columns, index=self.X_test.index)
+        # self.X_train = pd.DataFrame(knn_imputer.fit_transform(self.X_train.values),columns=self.X_train.columns, index=self.X_train.index)
+        # self.X_test = pd.DataFrame(knn_imputer.fit_transform(self.X_test),columns=self.X_test.columns, index=self.X_test.index)
 
-       # scaler = StandardScaler().fit(self.X_train.values)
-       # X_train = pd.DataFrame(scaler.transform(self.X_train.values), columns=self.X_train.columns, index=self.X_train.index)
-      #  X_test = pd.DataFrame(scaler.transform(self.X_test.values), columns=self.X_test.columns, index=self.X_test.index)
         X_train_means = self.X_train.mean()
         X_test_means = self.X_test.mean()
 
-        X_train = self.X_train.fillna(X_train_means)
-        X_test = self.X_test.fillna(X_test_means)
+        X_train = X_train.fillna(X_train_means)
+        X_test = X_test.fillna(X_test_means)
+
 
 
         y_test = np.asarray(functools.reduce(operator.iconcat, np.asarray(self.y_test), []))

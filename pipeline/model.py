@@ -277,7 +277,7 @@ class ModelBuilder:
                                  # Specifies the kernel type to be used in an algorithm.
 
         # Setting the hyperparameters for Gradient boosted decision trees
-        SVR_training = BayesSearchCV(SVR(), SVR_distributions, n_iter=n_iterations,
+        SVR_training = BayesSearchCV(SVR(max_iter=1000,tol=1e-3), SVR_distributions, n_iter=n_iterations,
                                      cv=cross_val, n_jobs=num_jobs, verbose=10).fit(X_train, y_train)
 
         SVR_model = SVR_training.best_estimator_
@@ -502,7 +502,7 @@ class ModelBuilder:
                                  # Specifies the kernel type to be used in an algorithm.
                                  )
 
-        SVR_training = RandomizedSearchCV(SVR(), SVR_distributions, n_iter=n_iterations,
+        SVR_training = RandomizedSearchCV(SVR(max_iter=1000,tol=1e-3), SVR_distributions, n_iter=n_iterations,
                                           cv=cross_val, n_jobs=num_jobs, verbose=10).fit(X_train,y_train)
 
         SVR_model = SVR_training.best_estimator_
@@ -562,7 +562,7 @@ class ModelBuilder:
                              batch_size=randint(10, 50),
                              learning_rate_init=loguniform(1e-4, 1e-2))
 
-        NN_training = RandomizedSearchCV(MLPRegressor(max_iter=200, verbose=True),
+        NN_training = RandomizedSearchCV(MLPRegressor(max_iter=100, verbose=True),
                                                    NN_parameters, n_iter=n_iterations, cv=cross_val,
                                                    n_jobs=num_jobs).fit(X_train, y_train)
         NN_model = NN_training.best_estimator_

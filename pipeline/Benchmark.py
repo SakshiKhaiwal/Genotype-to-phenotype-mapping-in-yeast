@@ -11,7 +11,7 @@ if __name__ == '__main__':
     params = get_parameters()
 
 
-    GenMatrices = [f for f in os.listdir(params.data_path) if f.endswith('gen.csv')] # List of all genetic matrices
+    GenMatrices = [f for f in os.listdir(params.data_path) if f.endswith('CNV_with_popstruc_1011_gen.csv')] # List of all genetic matrices
     PhenMatrix = [f for f in os.listdir(params.data_path) if f.endswith('phen.csv')] # Phenotypic matrix
 
     y_data = pd.read_csv(os.path.join(params.data_path, PhenMatrix[0]), index_col=0)
@@ -20,7 +20,8 @@ if __name__ == '__main__':
     models_to_train = ['RandHypOPt_Ridge_regression', 'BayesHypOPt_Ridge_regression',
                        'RandHypOPt_GBM_regression', 'BayesHypOPt_GBM_regression',
                        'RandHypOPt_SVR_regression','BayesHypOPt_SVR_regression',
-                       'RandHypOPt_NN_regression', 'BayesHypOPt_NN_regression']
+                       'RandHypOPt_NN_regression', 'BayesHypOPt_NN_regression'
+                       ]
     exception_list = []
 
     for x_name in GenMatrices:
