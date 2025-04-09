@@ -59,13 +59,13 @@ class FeatureSelection:
 
         return {'X_train': LASSO_X_train, 'X_test': LASSO_X_test}
 
-    def lasso_selection_random(self, n_iterations=500, nfolds=5, njobs=-1):
+    def lasso_selection_random(self, n_iterations=1000, nfolds=5, njobs=-1):
 
         X_train = self.X_train
         X_test = self.X_test
         y_train = self.y_train
 
-        lasso = Lasso(random_state=0, max_iter=10000)
+        lasso = Lasso(random_state=0, max_iter=1000)
         tuned_parameters = dict(alpha=loguniform(1e-4, 1))
         Tuned_lasso_alpha = RandomizedSearchCV(lasso,  tuned_parameters, n_iter=n_iterations,
                                                cv=nfolds, n_jobs=njobs, refit=False).fit(X_train, y_train).best_params_
@@ -111,7 +111,6 @@ class FeatureSelection:
         rf = RandomForestRegressor(random_state=0, n_estimators=500)
         boruta = BorutaPy(rf, n_estimators='auto', max_iter=1000,alpha=0.5, verbose=2, random_state=42)
         boruta.fit(X_train.values, y_train)
-        #index_selected_features = np.where(boruta.support_==True)[0]
         Boruta_X_train = boruta.transform(X_train.values)
         Boruta_X_test =  boruta.transform(X_test.values)
         Boruta_X_train = pd.DataFrame(data=Boruta_X_train,
@@ -120,6 +119,7 @@ class FeatureSelection:
                                     columns=X_test.columns[np.where(boruta.support_==True)[0]])
 
         return {'X_train': Boruta_X_train, 'X_test': Boruta_X_test}
+
     def high_lasso(self, l=30, alpha=0.05, njobs=50):
 
         X_train = self.X_train
