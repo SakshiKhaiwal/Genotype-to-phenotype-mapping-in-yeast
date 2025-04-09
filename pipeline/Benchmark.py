@@ -11,8 +11,8 @@ if __name__ == '__main__':
     params = get_parameters()
 
 
-    GenMatrices = [f for f in os.listdir(params.data_path) if f.endswith('CNV_with_popstruc_1011_gen.csv')] # List of all genetic matrices
-    PhenMatrix = [f for f in os.listdir(params.data_path) if f.endswith('phen.csv')] # Phenotypic matrix
+    GenMatrices = [f for f in os.listdir(params.data_path) if f.endswith('Gen_Matrix.csv')] # List of all genetic matrices
+    PhenMatrix = [f for f in os.listdir(params.data_path) if f.endswith('Phen_Matrix.csv')] # Phenotypic matrix
 
     y_data = pd.read_csv(os.path.join(params.data_path, PhenMatrix[0]), index_col=0)
     num_targets = y_data.shape[1]
