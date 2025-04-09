@@ -19,9 +19,8 @@ if __name__ == '__main__':
 
     models_to_train = ['RandHypOPt_Ridge_regression', 'BayesHypOPt_Ridge_regression',
                        'RandHypOPt_GBM_regression', 'BayesHypOPt_GBM_regression',
-                       'RandHypOPt_SVR_regression','BayesHypOPt_SVR_regression',
-                       'RandHypOPt_NN_regression', 'BayesHypOPt_NN_regression'
-                       ]
+                       'RandHypOPt_SVR_regression', 'BayesHypOPt_SVR_regression',
+                       'RandHypOPt_NN_regression', 'BayesHypOPt_NN_regression']
     exception_list = []
 
     for x_name in GenMatrices:
@@ -58,6 +57,7 @@ if __name__ == '__main__':
                 clades = pd.read_csv(params.clades_data_path, index_col=0)
                 preprocessed_data = data_preprocessor.preprocess_data_LOCO(clades)
 
+            start_FS = time.time()
             if params.do_feature_selection==True:
                 features_selector = FeatureSelection(preprocessed_data['X_train'],
                                                      preprocessed_data['X_test'],
@@ -65,7 +65,8 @@ if __name__ == '__main__':
                 selected_features = features_selector.select_features(method=params.feature_selection_strategy)
             else:
                 selected_features = preprocessed_data
-
+            end_FS = time.time()
+            FS_time = end_FS - start_FS
             models_trained = []
             models_training_times = []
             for model_name in models_to_train:
@@ -89,41 +90,44 @@ if __name__ == '__main__':
                     models_training_times.append(training_time)
                     testing_strains[model_name] = preprocessed_data['strains_testing'].iloc[:, 0].tolist()
                     y_test_predicted[model_name] = r.y_test_predicted
-                    training_strains[model_name] = preprocessed_data['strains_testing'].iloc[:, 0].tolist()
+                    training_strains[model_name] = preprocessed_data['strains_training'].iloc[:, 0].tolist()
                     y_train_predicted[model_name] = r.y_train_predicted
                     try:
                         feature_importance_scores[model_name] = r.feature_importance_scores.to_dict()
                     except Exception as e:
                         print(e)
                         feature_importance_scores[model_name] = 'NA'
+
                 except Exception as e:
                     print(e)
                     Phenotypes_with_error.append(Phenotype_name)
 
+
             with open(f'{params.data_path_out}{x_name}_{Phenotype_name}.json', 'w+') as f:
-                d = {
-                    'models used': models_trained,
-                    'Test r2 score': Test_r2score,
-                    'Train r2 score': Train_r2score,
-                    'MSE': MSE,
-                    'CV mean score': CV_mean_score,
-                    'CV std': CV_score_std,
-                    'Test pears value': Test_pears_val,
-                    'Train pears value': Train_pears_val,
-                    'Train p-value': Train_pears_pval,
-                    'Test p-value': Test_pears_pval,
-                    'Training time': training_time
-                }
+                    d = {
+                            'FS time': FS_time,
+                            'models used': models_trained,
+                            'Test r2 score': Test_r2score,
+                            'Train r2 score': Train_r2score,
+                            'MSE': MSE,
+                            'CV mean score': CV_mean_score,
+                            'CV std': CV_score_std,
+                            'Test pears value': Test_pears_val,
+                            'Train pears value': Train_pears_val,
+                            'Train p-value': Train_pears_pval,
+                            'Test p-value': Test_pears_pval,
+                            'Training time': models_training_times
+                    }
 
-                json.dump(d, f)
+                    json.dump(d, f)
 
-            with open(f'{params.data_path_out}{x_name}_{Phenotype_name}_with_additional_information.json',
-                      'w+') as f:
-                d = {'y_train_predicted': y_train_predicted,
-                     'y_test_predicted': y_test_predicted,
-                     'training_strains': training_strains,
-                     'testing_strains': testing_strains,
-                     'Features importance scores': feature_importance_scores
-                     }
-                json.dump(d, f)
-        (pd.DataFrame(Phenotypes_with_error)).to_csv(f'{x_name}_Phenotypes_with_error.csv')
+            with open(f'{params.data_path_out}{x_name}_{Phenotype_name}_with_additional_information.json', 'w+') as f:
+                    d = {'y_train_predicted': y_train_predicted,
+                         'y_test_predicted': y_test_predicted,
+                         'training_strains': training_strains[model_name],
+                         'testing_strains': testing_strains[model_name],
+                         'Features importance scores': feature_importance_scores}
+                    json.dump(d, f)
+
+
+            (pd.DataFrame(Phenotypes_with_error)).to_csv(f'{x_name}_Phenotypes_with_error.csv')
