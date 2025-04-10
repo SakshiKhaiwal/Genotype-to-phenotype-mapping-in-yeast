@@ -24,9 +24,9 @@ train_index, test_index = next(sss.split(Predictor_matrix, Target_matrix_process
 X_train, X_test = Predictor_matrix.iloc[train_index, :], Predictor_matrix.iloc[test_index, :]
 y_train, y_test = Target_matrix_processed.iloc[train_index, :], Target_matrix_processed.iloc[test_index, :]
 training_strains, testing_strains = Predictor_matrix.index[train_index], Predictor_matrix.index[test_index]
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train.values)
-X_test = scaler.fit_transform(X_test.values)
+scaler = StandardScaler.fit(X_train.values)
+X_train = scaler.transform(X_train.values)
+X_test = scaler.transform(X_test.values)
 y_train = scaler.fit_transform(y_train)
 y_test = scaler.fit_transform(y_test)
 
