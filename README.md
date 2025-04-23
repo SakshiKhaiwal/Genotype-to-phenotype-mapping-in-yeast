@@ -35,7 +35,8 @@ You will see the following parameters that the user can define.
   --data_path_out DATA_PATH_OUT  ###path to the output data
                         
 
-  --data_splitting_criteria {preprocess_data_HOAR,preprocess_data_INHO,preprocess_data_LOCO}  ###how to split the data into training and testing
+  --data_splitting_criteria {preprocess_data_HOAR_MI,preprocess_data_HOAR_KNN,
+                              preprocess_data_INHO,preprocess_data_LOCO}  ###how to split the data into training and testing
                         
 
   --clades_data_path CLADES_DATA_PATH ###if splitting criteria is INHO or LOCO, then give the path to the clade path.
@@ -44,9 +45,15 @@ You will see the following parameters that the user can define.
   --do_feature_selection DO_FEATURE_SELECTION ###do feature selection
                         
 
-  --feature_selection_strategy {lasso_selection_grid,lasso_selection_grid_optimized,lasso_selection_random,lasso_selection_bayes,high_lasso} ### choice of feature selection strategy
+  --feature_selection_strategy {'lasso_selection_grid', 'lasso_selection_random',
+                                 'lasso_selection_bayes', 'Boruta_selection','high_lasso'} ### choice of feature selection strategy
                        
-  --model_type {BayesHypOPt_Ridge_regression,BayesHypOPt_Elanet_regression,BayesHypOPt_GBM_regression,BayesHypOPt_SVR_regression,BayesHypOPt_NN_regression,RandHypOPt_Ridge_regression,RandHypOPt_Elanet_regression,RandHypOPt_GBM_regression,RandHypOPt_SVR_regression,RandHypOPt_NN_regression} ###model to be used for prediction.
+  --model_type {'BayesHypOPt_Ridge_regression', 'BayesHypOPt_Elanet_regression',
+                                 'BayesHypOPt_GBM_regression','BayesHypOPt_HistGBM_regression',
+                                 'BayesHypOPt_SVR_regression','BayesHypOPt_NN_regression',
+                                 'RandHypOPt_Ridge_regression','RandHypOPt_Elanet_regression',
+                                 'RandHypOPt_GBM_regression','RandHypOPt_SVR_regression',
+                                 'RandHypOPt_NN_regression} ###model to be used for prediction.
                         
 
                     
@@ -61,7 +68,7 @@ To train the model with the default parameters, run the following command:
 
 
 - Results.
-The output path should contain two JSON files with the suffix '_prediction_accuracy.json' and '_additional_information.json'. Each file contains a dictionary object, '_prediction_accuracy.json': 'Test r2 score', 'Train r2 score', 'Test pears value': Test_pears_val, 'Train pears value', 'Training time' and the '_additional_information.json': 'y_train_predicted', 'y_test_predicted', and 'Features importance scores'.
+The output path should contain two JSON files with the suffix '_prediction_accuracy.json' and '_additional_information.json'. Each file contains a dictionary object, '_prediction_accuracy.json': 'Test r2 score', 'Train r2 score', 'MSE', 'CV mean score', 'CV std', 'Test pears value', 'Train pears value', 'Training time' and the '_additional_information.json': 'y_train_predicted', 'y_test_predicted', and 'Features importance scores'.
 
 
 # Benchmarking 
