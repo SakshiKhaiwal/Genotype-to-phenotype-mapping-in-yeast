@@ -38,29 +38,55 @@ class ModelBuilder:
         self.trained = False
         self.dataset_name = dataset_name
 
-    def train_model(self, train_method):
+    def train_model(self, train_method, params):
+        n_iterations = params.n_iterations
+        cross_val = params.cross_val
+        num_jobs = params.num_jobs
+        print(n_iterations, cross_val, num_jobs)
         if train_method == 'BayesHypOPt_Ridge_regression':
-            result = self.BayesHypOPt_Ridge_regression(n_iterations=100, cross_val=5, num_jobs=-1)
+            result = self.BayesHypOPt_Ridge_regression(n_iterations=n_iterations,
+                                                       cross_val=cross_val,
+                                                       num_jobs=num_jobs)
         elif train_method == 'BayesHypOPt_Elanet_regression':
-            result = self.BayesHypOPt_Elanet_regression(n_iterations=100, cross_val=5, num_jobs=-1)
+            result = self.BayesHypOPt_Elanet_regression(n_iterations=n_iterations,
+                                                        cross_val=cross_val,
+                                                        num_jobs=num_jobs)
         elif train_method == 'BayesHypOPt_GBM_regression':
-            result = self.BayesHypOPt_GBM_regression(n_iterations=100, cross_val=5, num_jobs=-1)
+            result = self.BayesHypOPt_GBM_regression(n_iterations=n_iterations,
+                                                     cross_val=cross_val,
+                                                     num_jobs=num_jobs)
         elif train_method == 'BayesHypOPt_HistGBM_regression':
-            result = self.BayesHypOPt_HistGBM_regression(n_iterations=100, cross_val=5, num_jobs=-1)
+            result = self.BayesHypOPt_HistGBM_regression(n_iterations=n_iterations,
+                                                         cross_val=cross_val,
+                                                         num_jobs=num_jobs)
         elif train_method == 'BayesHypOPt_SVR_regression':
-            result = self.BayesHypOPt_SVR_regression(n_iterations=100, cross_val=5, num_jobs=-1)
+            result = self.BayesHypOPt_SVR_regression(n_iterations=n_iterations,
+                                                     cross_val=cross_val,
+                                                     num_jobs=num_jobs)
         elif train_method == 'BayesHypOPt_NN_regression':
-            result = self.BayesHypOPt_NN_regression(n_iterations=100, cross_val=5, num_jobs=-1)
+            result = self.BayesHypOPt_NN_regression(n_iterations=n_iterations,
+                                                    cross_val=cross_val,
+                                                    num_jobs=num_jobs)
         elif train_method == 'RandHypOPt_Ridge_regression':
-            result = self.RandHypOPt_Ridge_regression(n_iterations=1000, cross_val=5, num_jobs=-1)
+            result = self.RandHypOPt_Ridge_regression(n_iterations=n_iterations,
+                                                      cross_val=cross_val,
+                                                      num_jobs=num_jobs)
         elif train_method == 'RandHypOPt_Elanet_regression':
-            result = self.RandHypOPt_Elanet_regression(n_iterations=1000, cross_val=5, num_jobs=-1)
+            result = self.RandHypOPt_Elanet_regression(n_iterations=n_iterations,
+                                                       cross_val=cross_val,
+                                                       num_jobs=num_jobs)
         elif train_method == 'RandHypOPt_GBM_regression':
-            result = self.RandHypOPt_GBM_regression(n_iterations=1000, cross_val=5, num_jobs=-1)
+            result = self.RandHypOPt_GBM_regression(n_iterations=n_iterations,
+                                                    cross_val=cross_val,
+                                                    num_jobs=num_jobs)
         elif train_method == 'RandHypOPt_SVR_regression':
-            result = self.RandHypOPt_SVR_regression(n_iterations=1000, cross_val=5, num_jobs=-1)
+            result = self.RandHypOPt_SVR_regression(n_iterations=n_iterations,
+                                                    cross_val=cross_val,
+                                                    num_jobs=num_jobs)
         elif train_method == 'RandHypOPt_NN_regression':
-            result = self.RandHypOPt_NN_regression(n_iterations=100, cross_val=5, num_jobs=-1)
+            result = self.RandHypOPt_NN_regression(n_iterations=n_iterations,
+                                                   cross_val=cross_val,
+                                                   num_jobs=num_jobs)
         else:
             print('Undefined train method')
             return
