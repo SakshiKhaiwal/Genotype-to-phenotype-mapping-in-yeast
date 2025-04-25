@@ -6,6 +6,15 @@ from model import ModelBuilder
 from parameters import get_parameters
 from preprocess import DataPreprocessing
 from feature_selection import FeatureSelection
+from dataclasses import dataclass
+
+
+@dataclass
+class ModelParams:
+    n_iterations: int
+    cross_val: int
+    num_jobs: int
+
 
 start_time = time.time()
 if __name__ == '__main__':
@@ -34,8 +43,12 @@ if __name__ == '__main__':
 
     model = ModelBuilder(X_train=features['X_train'], X_test=features['X_test'],
                          y_train=preprocessed_data['y_train'], y_test=preprocessed_data['y_test'])
+    model_type = params.model_type
+    model_params = ModelParams(n_iterations=params.n_iterations,
+                               cross_val=params.cross_val,
+                               num_jobs=params.num_jobs)
     start_time = time.time()
-    r = model.train_model(train_method=params.model_type)
+    r = model.train_model(train_method=model_type, params=model_params)
     end_time = time.time()
     training_time = end_time - start_time
 
