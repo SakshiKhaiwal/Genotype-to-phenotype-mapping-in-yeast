@@ -19,7 +19,7 @@ class PredictionResults:
         self.results = results
         self.y_train_predicted = y_train_predicted.tolist()
         self.y_test_predicted = y_test_predicted.tolist()
-        if not (model_type in ["BayesHypOPt_NN_regression", "RandHypOPt_NN_regression"]):
+        if not (model_type in ["BayesHypOPt_NN_regression", "RandHypOPt_NN_regression","BayesHypOPt_HistGBM_regression"]):
             self.feature_importance_scores = feature_importance_scores
         else:
             self.feature_importance_scores = feature_importance_scores
@@ -240,13 +240,14 @@ class ModelBuilder:
 
         # Setting the hyperparameters for Gradient boosted decision trees
         HistGBM_distributions = dict(
-
                                  learning_rate=Real(1e-4, 1, prior='uniform'),
                                  # Learning rate shrinks the contribution of each tree by learning_rate.
                                  max_leaf_nodes=Integer(2, 100, prior='uniform'),
                                  # The maximum number of leaves for each tree.
                                  max_depth=Integer(2, 10, prior='uniform'),
                                  # Maximum depth of the individual regression estimators.
+                                 max_trees=Integer(10, 200, prior='uniform'),
+                                 # Maximum number of trees
                                  min_samples_leaf=Integer(2, 100, prior='uniform'),
                                  # The minimum number of samples required to be at a leaf node.
                                  max_bins=Integer(2, 255, prior='uniform')
@@ -259,7 +260,7 @@ class ModelBuilder:
 
         HistGBM_model = HistGBM_training.best_estimator_
         HistGBM_model_cv = HistGBM_training.cv_results_
-        #feature_importance_scores_GBM = pd.Series(list(HistGBM_model.feature_importances_), index=X_train.columns)
+        feature_importance_scores_HistGBM = 'Nan'
         y_test_predicted = HistGBM_model.predict(X_test)
         y_train_predicted = HistGBM_model.predict(X_train)
         test_r2score = metrics.r2_score(y_test, y_test_predicted)
@@ -282,7 +283,7 @@ class ModelBuilder:
                   'Train pearson value': train_pears_val,
                   'Train pearson p-value': train_pears_pval}
         scores = pd.Series(list(scores.values()), index=(scores.keys()))
-        results = PredictionResults(scores, y_train_predicted, y_test_predicted, HistGBM_model)
+        results = PredictionResults(scores, y_train_predicted, y_test_predicted, feature_importance_scores_HistGBM, HistGBM_model)
         return results
     def BayesHypOPt_SVR_regression(self, n_iterations=100, cross_val=5, num_jobs=-1):
         X_train = self.X_train
