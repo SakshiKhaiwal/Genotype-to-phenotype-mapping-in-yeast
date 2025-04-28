@@ -37,31 +37,29 @@ You will see the following parameters that the user can define.
 
   --data_splitting_criteria {preprocess_data_HOAR,preprocess_data_INHO,preprocess_data_LOCO}
                       ###  How to split the data into training and testing
-  --test_fraction TEST_FRACTION
-                     ###   Size of the test set
-  --imputation_method {MI,KNN}
-                     ###   type of imputation method for missing data
+
+  --test_fraction float ranging between 0 and 1 ###   fraction of dataset to be used for test set
+  --imputation_method {MI,KNN} ###   type of imputation method for missing data
 
   --clades_data_path CLADES_DATA_PATH ### if splitting criteria is INHO or LOCO, then give the path to the clade path.
                         
 
-  --do_feature_selection DO_FEATURE_SELECTION ### Do feature selection
+  --do_feature_selection True or False  ## Whether to perform feature selection or not
                         
 
   --feature_selection_strategy {'lasso_selection_grid', 'lasso_selection_random',
-                                 'lasso_selection_bayes','high_lasso'} ### Choice of feature selection strategy
+                                 'lasso_selection_bayes','high_lasso'} ### Choices of feature selection strategy
                        
   --model_type {'BayesHypOPt_Ridge_regression', 'BayesHypOPt_Elanet_regression',
                                  'BayesHypOPt_GBM_regression','BayesHypOPt_HistGBM_regression',
                                  'BayesHypOPt_SVR_regression','BayesHypOPt_NN_regression',
                                  'RandHypOPt_Ridge_regression','RandHypOPt_Elanet_regression',
                                  'RandHypOPt_GBM_regression','RandHypOPt_SVR_regression',
-                                 'RandHypOPt_NN_regression} ###model to be used for prediction.
---n_iterations N_ITERATIONS
-                        ### Number of iterations for the model
-  --cross_val CROSS_VAL
-                       ### value of the cross-validation
-  --num_jobs NUM_JOBS  ### Number of jobs to use
+                                 'RandHypOPt_NN_regression} ### Model to be used for training.
+
+--n_iterations N_ITERATIONS ### Number of iterations for the model
+--cross_val CROSS_VAL  ### Number of the cross-validation folds
+--num_jobs NUM_JOBS  ### Number of computational threads to use, -1 to use all.
 
 
                     
