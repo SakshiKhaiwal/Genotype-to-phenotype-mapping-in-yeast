@@ -29,24 +29,27 @@ To see all the parameters of the pipeline, run:
 You will see the following parameters that the user can define.
 ```
 
-  --data_path DATA_PATH   ###path to the input data
+  --data_path DATA_PATH   ### path to the input data
                         
 
-  --data_path_out DATA_PATH_OUT  ###path to the output data
+  --data_path_out DATA_PATH_OUT  ### path to the output data
                         
 
-  --data_splitting_criteria {preprocess_data_HOAR_MI,preprocess_data_HOAR_KNN,
-                              preprocess_data_INHO,preprocess_data_LOCO}  ###how to split the data into training and testing
+  --data_splitting_criteria {preprocess_data_HOAR,preprocess_data_INHO,preprocess_data_LOCO}
+                      ###  How to split the data into training and testing
+  --test_fraction TEST_FRACTION
+                     ###   Size of the test set
+  --imputation_method {MI,KNN}
+                     ###   type of imputation method for missing data
+
+  --clades_data_path CLADES_DATA_PATH ### if splitting criteria is INHO or LOCO, then give the path to the clade path.
                         
 
-  --clades_data_path CLADES_DATA_PATH ###if splitting criteria is INHO or LOCO, then give the path to the clade path.
-                        
-
-  --do_feature_selection DO_FEATURE_SELECTION ###do feature selection
+  --do_feature_selection DO_FEATURE_SELECTION ### Do feature selection
                         
 
   --feature_selection_strategy {'lasso_selection_grid', 'lasso_selection_random',
-                                 'lasso_selection_bayes', 'Boruta_selection','high_lasso'} ### choice of feature selection strategy
+                                 'lasso_selection_bayes','high_lasso'} ### Choice of feature selection strategy
                        
   --model_type {'BayesHypOPt_Ridge_regression', 'BayesHypOPt_Elanet_regression',
                                  'BayesHypOPt_GBM_regression','BayesHypOPt_HistGBM_regression',
@@ -54,7 +57,12 @@ You will see the following parameters that the user can define.
                                  'RandHypOPt_Ridge_regression','RandHypOPt_Elanet_regression',
                                  'RandHypOPt_GBM_regression','RandHypOPt_SVR_regression',
                                  'RandHypOPt_NN_regression} ###model to be used for prediction.
-                        
+--n_iterations N_ITERATIONS
+                        ### Number of iterations for the model
+  --cross_val CROSS_VAL
+                       ### value of the cross-validation
+  --num_jobs NUM_JOBS  ### Number of jobs to use
+
 
                     
 
@@ -82,5 +90,5 @@ In the 'INPUT_DATA_PATH', the genetic matrices are added with the suffix 'gen.cs
 
 
 # Dataset.
-All the datasets used in the project are provided with the ref. paper.
+All the datasets used in the project are provided in the referenced paper.
 
